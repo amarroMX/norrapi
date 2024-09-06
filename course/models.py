@@ -63,12 +63,31 @@ class Module(models.Model):
 class Quizz(models.Model):
     module = models.ForeignKey(Module, on_delete=models.CASCADE, related_name='quizzes')
     title = models.CharField(max_length=255)
-    answer = models.JSONField()
+    answers = models.JSONField()
     order = models.PositiveSmallIntegerField()
     completed_in = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
     slug = models.SlugField(max_length=255, unique=True)
     create_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+
+# sample answer {
+#     "A": {
+#         "text": "Choice A description",
+#         "is_correct": False
+#     },
+#     "B": {
+#         "text": "Choice B description",
+#         "is_correct": True
+#     },
+#     "C": {
+#         "text": "Choice C description",
+#         "is_correct": False
+#     },
+#     "D": {
+#         "text": "Choice D description",
+#         "is_correct": False
+#     }
+# }
 
 
 class Resources(models.Model):
@@ -80,7 +99,7 @@ class Resources(models.Model):
     completed_in = models.DecimalField(max_digits=6, decimal_places=2, blank=True, null=True)
 
 
-class Videos(models.Model):
+class Video(models.Model):
     title = models.CharField(max_length=255, unique=True)
     slug = models.SlugField(max_length=255, unique=True)
     file = models.FileField(upload_to='videos')
